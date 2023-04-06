@@ -51,3 +51,17 @@ for (let i = 21; i > 10 ; i-=x ){
     console.log(i);
 
 }
+
+
+
+
+numberOfPieces = list[0]
+    pieces = list.slice(1, Number(numberOfPieces)+1)
+    actions = list.slice(Number(numberOfPieces)+1,)
+    piecesFull = []
+
+    for (x of pieces) {
+        [ piece, composer, key] = x.split('|')
+        pieceObj = { piece, composer, key }
+        piecesFull.push(pieceObj)
+    }
