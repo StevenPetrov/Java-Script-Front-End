@@ -19,17 +19,19 @@ function solve() {
     totalpoints = 0
     uniqueTaskFounder = 0
 
+    counter = 1
+
 
     function createTaskHandler(){
         if (titleInput.value && descInput.value && labelInput.value && pointsInput.value && assigneeInput.value){
             uniqueTaskFounder += 1
-            article = createElement('article',taskContainer,null,['task-card'],'task-1');
-            if (labelInput.value == 'Feature: &#8865'){
-                label = createElement('div',article,labelInput.value,['task-card-label','feature']);
-            } else if (labelInput.value == 'Low Priority Bug: &#9737'){
-                label = createElement('div',article,labelInput.value,['task-card-label','low-priority']);
-            } else if (labelInput.value == 'High Priority Bug: &#9888'){
-                label = createElement('div',article,labelInput.value,['task-card-label','high-priority']);
+            article = createElement('article',taskContainer,null,['task-card'],`task-${counter}`);
+            if (labelInput.value == 'Feature'){
+                label = createElement('div',article,labelInput.value+' ⊡',['task-card-label','feature']);
+            } else if (labelInput.value == 'Low Priority Bug'){
+                label = createElement('div',article,labelInput.value+' ☉',['task-card-label','low-priority']);
+            } else if (labelInput.value == 'High Priority Bug'){
+                label = createElement('div',article,labelInput.value+' ⚠',['task-card-label','high-priority']);
             }
             h3 = createElement('h3', article,titleInput.value,['task-card-title']);
             desc = createElement('p',article,descInput.value,['task-card-description']);
@@ -41,6 +43,7 @@ function solve() {
 
             pointsUpdate(pointsInput.value)
             clearInputFields()
+            counter ++
         }
     }
 
@@ -60,10 +63,9 @@ function solve() {
 
     function loadDelete(e){
     mainMain = this.parentNode.parentNode.children
-    console.log(mainMain)
-    titleInput.value = (this.parentNode.parentNode.children[1]).textContent
-    descInput.value = (this.parentNode.parentNode.children[2]).textContent
-    labelInput.value = (this.parentNode.parentNode.children[0]).textContent
+    titleInput.value = (mainMain[1]).textContent
+    descInput.value = (mainMain[2]).textContent
+    labelInput.value = ((this.parentNode.parentNode.children[0]).textContent).split(' ')[0]
     pointsInput.value = Number((this.parentNode.parentNode.children[3]).textContent.split(' ')[2])
     assigneeInput.value = (this.parentNode.parentNode.children[4]).textContent.split(' ')[2]
     createBtn.disabled = true
